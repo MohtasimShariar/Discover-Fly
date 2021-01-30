@@ -25,12 +25,20 @@
                 <li><a class="active" href="#">Sign Up</a></li>
             </ul>
         </nav>
+        <!-- Show another part  -->
+        <div id="booking-info" class="container">
+            <h1>Your booking information (Partially Done, Trying!!! )</h1>
+            <div id="Subtotal">SubTotal:</div>
+            <div id="Chargevat">Charge 10% VAT:</div>
+            <div id="Totals">Total:</div>
+            
+        </div>
     </header>
 
 
 
     <!--Booking Section-->
-    <main class="main-content container">
+    <main id="booking-area" class="main-content container">
          <div class="booking-form"> 
             <h3>Booking Flights</h3>
             <div class="input-group">
@@ -51,37 +59,35 @@
                     <input class="inp-style" type="date" name="">
                 </div>
             </div>
-          <!-- my work start -->
+         
 
             <!-- first class booking -->
-            <div class="">    <!--  row -->
-                <div class="">
-                    <h4>First Class( <span id="phone-total" >$150</span> )</h4>
+            <div >    
+                <div>
+                    <h4>First Class( <span id="first-class-total" >$150</span> )</h4>
                 </div>
-                <div class="">
-                    <div class="">
-                            <button onclick="handleProductChange('phone', true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
-                            <input id="phone-count" type="text" class="form-control text-center" value="1">
-                            <button onclick="handleProductChange('phone', false)" class="btn btn-default"><i class="fas fa-minus"></i></button>     
+                <br>
+                    <div>
+                            <button onclick="handleTicketChange('first-class', true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                            <input id="first-class-count" type="text" class="form-control text-center" value="1"><!-- first-class-count -->
+                            <button onclick="handleTicketChange('first-class', false)" class="btn btn-default"><i class="fas fa-minus"></i></button>     
                     </div>
-                    
-                  
-                </div>
             </div>
-      <!-- 2nd class booking -->
+      <!-- second class booking -->
 
-            
-            <div class="">  
-                <div class="">
-                    <h4>Economy class (  <span id="case-total" >$100</span> )</h4>
+            <br>
+            <div>  
+                <div>
+                    <h4>Economy class (  <span id="economy-total" >$100</span> )</h4>
                    
                 </div>
-                <div class="">
-                    <div class="">
-                        <button onclick="handleProductChange('case', true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
-                        <input id="case-count" type="text" class="form-control text-center" value="1">
-                        <button onclick="handleProductChange('case', false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
-                    </div>
+                <br>
+                <div>
+                    
+                        <button onclick="handleTicketChange('economy', true)" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        <input id="economy-count"  type="text" class="form-control " value="1">
+                        <button onclick="handleTicketChange('economy', false)" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                    
                 </div>
             </div>
 
@@ -96,7 +102,7 @@
                         <p id="total-price">$250</p>
                     </div>
                 </div>
-                <!-- vat part -->
+        
                 <div class="amount">
                     <div class="left">
                         <p>Charge 10% VAT</p>
@@ -107,7 +113,7 @@
                 </div>
                 <hr>
 
-                <!-- Total  -->
+           
                 <div class="amount">
                     <div class="left">
                         <h4>Total</h4>
@@ -118,7 +124,7 @@
                 </div>
             </div>
             
-            <button class="btn-style">Book Now</button>
+            <button onclick="alert('Press ok to confirm your payment ')" id="submit" class="btn-style">Book Now</button>
          </div>
 
 
@@ -126,38 +132,40 @@
          <div class="booking-content">
             <h1>discover <br> around the world</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise voluptatibus quam</p>
-
         </div>
+    </main>
+        
         <script>
-            function handleProductChange(product, isIncrease) {
+            
+            function handleTicketChange(ticket, isIncrease) {
 
-                const productCount = getInputValue(product);
-                let productNewCount = productCount;
+                const ticketCount = getInputValue(ticket);
+                let ticketNewCount = ticketCount;
                 if (isIncrease == true) {
-                    productNewCount = productCount + 1;
+                    ticketNewCount = ticketCount + 1;
                 }
-                if (isIncrease == false && productCount > 0) {
-                    productNewCount = productCount - 1;
+                if (isIncrease == false && ticketCount > 0) {
+                    ticketNewCount = ticketCount - 1;
                 }
-                document.getElementById(product + '-count').value = productNewCount;
-                let productTotal = 0;
-                if (product == 'phone') {
-                    productTotal = productNewCount * 150;
+                document.getElementById(ticket + '-count').value = ticketNewCount;
+                let ticketTotal = 0;
+                if (ticket == 'first-class') {
+                    ticketTotal = ticketNewCount * 150;
                 }
-                if (product == 'case') {
-                    productTotal = productNewCount * 100;
+                if (ticket == 'economy') {
+                    ticketTotal = ticketNewCount * 100;
                 }
 
-                document.getElementById(product + '-total').innerText = '$' + productTotal;
+                document.getElementById(ticket + '-total').innerText = '$' + ticketTotal;
                 calculateTotal();
             }
 
             function calculateTotal() {
-                const phoneCount = getInputValue('phone');
-                const caseCount = getInputValue('case');
+                const firstClassCount = getInputValue('first-class');
+                const economyCount = getInputValue('economy');
 
-                const totalPrice = phoneCount * 150 + caseCount * 100;
-                document.getElementById('total-price').innerText = '$' + totalPrice;
+                const totalPrice = firstClassCount * 150 + economyCount * 100;
+                document.getElementById('total-price','Subtotal').innerText = '$' + totalPrice;
 
                 const tax = Math.round(totalPrice * 0.1);
                 document.getElementById('tax-amount').innerText = '$' + tax;
@@ -166,16 +174,23 @@
                 document.getElementById('grand-total').innerText = '$' + grandTotal;
             }
 
-            function getInputValue(product) {
-                console.log(product);
-                const productInput = document.getElementById(product + '-count');
-                const productCount = parseInt(productInput.value);
-                return productCount;
+            function getInputValue(ticket) {
+                console.log(ticket);
+                const ticketInput = document.getElementById(ticket + '-count');
+                const ticketCount = parseInt(ticketInput.value);
+                return ticketCount;
             }
+            // Show Result another page 
+            const submitBtn = document.getElementById("submit");
+            submitBtn.addEventListener("click", function(){     
+            const BookingArea = document.getElementById("booking-area");
+            BookingArea.style.display = "none";
+            const BookingInfo =document.getElementById("booking-info");
+            BookingInfo.style.display="block";
+        })
 
         </script>
-
-    <!--Thank You-->
+    
 </body>
 
 </html>
